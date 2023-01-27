@@ -1,7 +1,14 @@
 import express from "express";
+import { initDB } from "./models/mapping";
+import router from "./routers/index";
+
+initDB();
 
 const app = express();
 
-app.listen(3000, () => {
-  console.log("server start");
+app.use(express.json());
+app.use(router);
+
+app.listen(3001, () => {
+  console.log("server started on port 3000");
 });
