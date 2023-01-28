@@ -133,5 +133,5 @@ export const initDB = () => {
   User.hasOne(Order);
   Order.belongsTo(User);
 
-  sequelize.sync({ force: true });
+  sequelize.sync();
 };

@@ -18,7 +18,7 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = CategoryModel.findById(id);
+    const category = await CategoryModel.findById(id);
 
     if (!category) {
       return res.status(400).json({
@@ -39,7 +39,7 @@ export const create = async (req: Request, res: Response) => {
   try {
     const category = await CategoryModel.create(
       req.body.title,
-      req.body.img_path
+      req.body.icon_path
     );
 
     res.json(category);
@@ -77,7 +77,7 @@ export const update = async (req: Request, res: Response) => {
       icon_path: req.body.icon_path,
     });
 
-    res.json;
+    res.json(category);
   } catch (err) {
     console.log(err);
     res.status(500).json({
