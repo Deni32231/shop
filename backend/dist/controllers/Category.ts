@@ -1,9 +1,9 @@
-import CategoryModel from "../models/Category";
+import Category from "../models/Category";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await CategoryModel.findAll();
+    const categories = await Category.getAll();
 
     res.json(categories);
   } catch (err) {
@@ -18,7 +18,7 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await CategoryModel.findById(id);
+    const category = await Category.getById(id);
 
     if (!category) {
       return res.status(400).json({
@@ -37,10 +37,7 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await CategoryModel.create(
-      req.body.title,
-      req.body.icon_path
-    );
+    const category = await Category.create(req.body.title, req.body.icon_path);
 
     res.json(category);
   } catch (err) {
@@ -55,7 +52,7 @@ export const destroy = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    await CategoryModel.findByIdAndDelete(id);
+    await Category.deleteById(id);
 
     res.json({
       message: "Успешно удален",
@@ -72,7 +69,7 @@ export const update = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await CategoryModel.findByIdAndUpdate(id, {
+    const category = await Category.updateById(id, {
       title: req.body.title,
       icon_path: req.body.icon_path,
     });

@@ -1,16 +1,16 @@
-import { Category } from "./mapping";
+import { Category as CategoryMapping } from "./mapping";
 
-class CategoryModel {
-  async findAll() {
-    return await Category.findAll();
+class Category {
+  async getAll() {
+    return await CategoryMapping.findAll();
   }
 
-  async findById(id: number) {
-    return await Category.findByPk(id);
+  async getById(id: number) {
+    return await CategoryMapping.findByPk(id);
   }
 
   async create(title: string, icon_path: string) {
-    const category = await Category.create({
+    const category = await CategoryMapping.create({
       title,
       icon_path,
     });
@@ -18,11 +18,11 @@ class CategoryModel {
     return category;
   }
 
-  async findByIdAndDelete(id: number) {
-    const category = await Category.findByPk(id);
+  async deleteById(id: number) {
+    const category = await CategoryMapping.findByPk(id);
 
     if (!category) {
-      return category;
+      throw new Error("Категория не найдена");
     }
 
     category.destroy();
@@ -30,14 +30,11 @@ class CategoryModel {
     return category;
   }
 
-  async findByIdAndUpdate(
-    id: number,
-    value: { title: string; icon_path: string }
-  ) {
-    const category = await Category.findByPk(id);
+  async updateById(id: number, value: { title: string; icon_path: string }) {
+    const category = await CategoryMapping.findByPk(id);
 
     if (!category) {
-      return category;
+      throw new Error("Категория не найдена");
     }
 
     await category.update({
@@ -49,4 +46,4 @@ class CategoryModel {
   }
 }
 
-export default new CategoryModel();
+export default new Category();

@@ -1,9 +1,9 @@
-import SubcategoryModel from "../models/Subcategory";
+import Subcategory from "../models/Subcategory";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const subcategory = await SubcategoryModel.findAll();
+    const subcategory = await Subcategory.getAll();
 
     res.json(subcategory);
   } catch (err) {
@@ -18,7 +18,7 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const subcategory = await SubcategoryModel.findById(id);
+    const subcategory = await Subcategory.getById(id);
 
     if (!subcategory) {
       return res.status(400).json({
@@ -37,7 +37,7 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const subcategory = await SubcategoryModel.create(
+    const subcategory = await Subcategory.create(
       req.body.title,
       req.body.img_path,
       req.body.categoryId
@@ -56,7 +56,7 @@ export const destroy = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    await SubcategoryModel.findByIdAndDelete(id);
+    await Subcategory.deleteById(id);
 
     res.json({
       message: "Успешно удален",
@@ -73,7 +73,7 @@ export const update = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const subcategory = await SubcategoryModel.findByIdAndUpdate(id, {
+    const subcategory = await Subcategory.updateById(id, {
       title: req.body.title,
       img_path: req.body.img_path,
       categoryId: req.body.categoryId,

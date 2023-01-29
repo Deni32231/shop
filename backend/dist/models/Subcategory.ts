@@ -1,16 +1,16 @@
-import { Subcategory } from "./mapping";
+import { Subcategory as SubcategoryMapping } from "./mapping";
 
-class SubcategoryModel {
-  async findAll() {
-    return await Subcategory.findAll();
+class Subcategory {
+  async getAll() {
+    return await SubcategoryMapping.findAll();
   }
 
-  async findById(id: number) {
-    return await Subcategory.findByPk(id);
+  async getById(id: number) {
+    return await SubcategoryMapping.findByPk(id);
   }
 
   async create(title: string, img_path: string, categoryId: number) {
-    const subcategory = await Subcategory.create({
+    const subcategory = await SubcategoryMapping.create({
       title,
       img_path,
       categoryId,
@@ -19,11 +19,11 @@ class SubcategoryModel {
     return subcategory;
   }
 
-  async findByIdAndDelete(id: number) {
-    const subcategory = await Subcategory.findByPk(id);
+  async deleteById(id: number) {
+    const subcategory = await SubcategoryMapping.findByPk(id);
 
     if (!subcategory) {
-      return subcategory;
+      throw new Error("Подкатегория не найдена");
     }
 
     subcategory.destroy();
@@ -31,14 +31,14 @@ class SubcategoryModel {
     return subcategory;
   }
 
-  async findByIdAndUpdate(
+  async updateById(
     id: number,
     value: { title: string; img_path: string; categoryId: number }
   ) {
-    const subcategory = await Subcategory.findByPk(id);
+    const subcategory = await SubcategoryMapping.findByPk(id);
 
     if (!subcategory) {
-      return subcategory;
+      throw new Error("Подкатегория не найдена");
     }
 
     await subcategory.update({
@@ -51,4 +51,4 @@ class SubcategoryModel {
   }
 }
 
-export default new SubcategoryModel();
+export default new Subcategory();
