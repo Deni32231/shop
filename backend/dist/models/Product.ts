@@ -11,7 +11,7 @@ interface IProduct {
 }
 
 class Product {
-  async getAll(id: number) {
+  async getAll() {
     return await ProductMapping.findAll();
   }
 

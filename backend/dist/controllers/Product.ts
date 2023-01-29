@@ -1,11 +1,11 @@
-import Subcategory from "../models/Subcategory";
+import Product from "../models/Product";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const subcategories = await Subcategory.getAll();
+    const products = await Product.getAll();
 
-    res.json(subcategories);
+    res.json(products);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,32 +18,36 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const subcategory = await Subcategory.getById(id);
+    const product = await Product.getById(id);
 
-    if (!subcategory) {
+    if (!product) {
       return res.status(400).json({
-        message: "Не удалось найти подкатегорию",
+        message: "Не удалось найти товар",
       });
     }
 
-    res.json(subcategory);
+    res.json(product);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Ошибка севера",
+      message: "Ошибка сервера",
     });
   }
 };
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const subcategory = await Subcategory.create({
+    const product = await Product.create({
       title: req.body.title,
       img_path: req.body.img_path,
-      categoryId: req.body.categoryId,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      composition: req.body.composition,
+      weight: req.body.weight,
+      discount: req.body.discount,
     });
 
-    res.json(subcategory);
+    res.json(product);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -52,21 +56,19 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const destroy = async (req: Request, res: Response) => {
+export const deleteById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const subcategory = await Subcategory.deleteById(id);
+    const product = await Product.deleteById(id);
 
-    if (!subcategory) {
+    if (!product) {
       return res.status(400).json({
-        message: "Не удалось найти подкатегорию",
+        message: "Не удалось найти продукт",
       });
     }
 
-    res.json({
-      message: "Успешно удален",
-    });
+    res.json(product);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -75,23 +77,27 @@ export const destroy = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const subcategory = await Subcategory.updateById(id, {
+    const product = await Product.updateById(id, {
       title: req.body.title,
       img_path: req.body.img_path,
-      categoryId: req.body.categoryId,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      composition: req.body.composition,
+      weight: req.body.weight,
+      discount: req.body.discount,
     });
 
-    if (!subcategory) {
+    if (!product) {
       return res.status(400).json({
-        message: "Не удалось найти подкатегорию",
+        message: "Не удалось найти продукт",
       });
     }
 
-    res.json(subcategory);
+    res.json(product);
   } catch (err) {
     console.log(err);
     res.status(500).json({
