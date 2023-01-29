@@ -37,7 +37,10 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await Category.create(req.body.title, req.body.icon_path);
+    const category = await Category.create({
+      title: req.body.title,
+      icon_path: req.body.icon_path,
+    });
 
     res.json(category);
   } catch (err) {
@@ -52,10 +55,16 @@ export const destroy = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    await Category.deleteById(id);
+    const category = await Category.deleteById(id);
+
+    if (!category) {
+      return res.status(400).json({
+        message: "Не удалось найти категорию",
+      });
+    }
 
     res.json({
-      message: "Успешно удален",
+      message: "Успешно удалена",
     });
   } catch (err) {
     console.log(err);

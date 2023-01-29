@@ -15,7 +15,7 @@ class Product {
     return await ProductMapping.findAll();
   }
 
-  async findAll(id: number) {
+  async getById(id: number) {
     return await ProductMapping.findByPk(id);
   }
 
@@ -32,12 +32,33 @@ class Product {
     return product;
   }
 
-  async update(id: number, value: IProduct) {
+  async deleteById(id: number) {
     const product = await ProductMapping.findByPk(id);
 
     if (!product) {
-      return product;
+      return null;
     }
+
+    await product.destroy();
+
+    return product;
+  }
+
+  async updateById(id: number, value: IProduct) {
+    const product = await ProductMapping.findByPk(id);
+
+    if (!product) {
+      return null;
+    }
+
+    await product.update({
+      title: value.title,
+      price: value.price,
+      quantity: value.quantity,
+      composition: value.composition,
+      weight: value.weight,
+      discount: value.discount,
+    });
   }
 }
 

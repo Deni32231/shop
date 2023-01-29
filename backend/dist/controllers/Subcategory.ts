@@ -22,7 +22,7 @@ export const getById = async (req: Request, res: Response) => {
 
     if (!subcategory) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти подкатегорию",
       });
     }
 
@@ -37,11 +37,11 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const subcategory = await Subcategory.create(
-      req.body.title,
-      req.body.img_path,
-      req.body.categoryId
-    );
+    const subcategory = await Subcategory.create({
+      title: req.body.title,
+      img_path: req.body.img_path,
+      categoryId: req.body.categoryId,
+    });
 
     res.json(subcategory);
   } catch (err) {
@@ -56,7 +56,13 @@ export const destroy = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    await Subcategory.deleteById(id);
+    const subcategory = await Subcategory.deleteById(id);
+
+    if (!subcategory) {
+      return res.status(400).json({
+        message: "Не удалось найти подкатегорию",
+      });
+    }
 
     res.json({
       message: "Успешно удален",
@@ -81,7 +87,7 @@ export const update = async (req: Request, res: Response) => {
 
     if (!subcategory) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти подкатегорию",
       });
     }
 

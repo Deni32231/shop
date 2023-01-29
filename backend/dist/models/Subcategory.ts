@@ -1,5 +1,11 @@
 import { Subcategory as SubcategoryMapping } from "./mapping";
 
+interface ISubcategory {
+  title: string;
+  img_path: string;
+  categoryId: number;
+}
+
 class Subcategory {
   async getAll() {
     return await SubcategoryMapping.findAll();
@@ -9,11 +15,11 @@ class Subcategory {
     return await SubcategoryMapping.findByPk(id);
   }
 
-  async create(title: string, img_path: string, categoryId: number) {
+  async create(data: ISubcategory) {
     const subcategory = await SubcategoryMapping.create({
-      title,
-      img_path,
-      categoryId,
+      title: data.title,
+      img_path: data.img_path,
+      categoryId: data.categoryId,
     });
 
     return subcategory;
@@ -23,7 +29,7 @@ class Subcategory {
     const subcategory = await SubcategoryMapping.findByPk(id);
 
     if (!subcategory) {
-      throw new Error("Подкатегория не найдена");
+      return null;
     }
 
     subcategory.destroy();
@@ -31,20 +37,17 @@ class Subcategory {
     return subcategory;
   }
 
-  async updateById(
-    id: number,
-    value: { title: string; img_path: string; categoryId: number }
-  ) {
+  async updateById(id: number, data: ISubcategory) {
     const subcategory = await SubcategoryMapping.findByPk(id);
 
     if (!subcategory) {
-      throw new Error("Подкатегория не найдена");
+      return null;
     }
 
     await subcategory.update({
-      title: value.title,
-      img_path: value.img_path,
-      categoryId: value.categoryId,
+      title: data.title,
+      img_path: data.img_path,
+      categoryId: data.categoryId,
     });
 
     return subcategory;

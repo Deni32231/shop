@@ -1,5 +1,10 @@
 import { Category as CategoryMapping } from "./mapping";
 
+interface ICategory {
+  title: string;
+  icon_path: string;
+}
+
 class Category {
   async getAll() {
     return await CategoryMapping.findAll();
@@ -9,10 +14,10 @@ class Category {
     return await CategoryMapping.findByPk(id);
   }
 
-  async create(title: string, icon_path: string) {
+  async create(value: ICategory) {
     const category = await CategoryMapping.create({
-      title,
-      icon_path,
+      title: value.title,
+      icon_path: value.icon_path,
     });
 
     return category;
@@ -22,7 +27,7 @@ class Category {
     const category = await CategoryMapping.findByPk(id);
 
     if (!category) {
-      throw new Error("Категория не найдена");
+      return null;
     }
 
     category.destroy();
@@ -30,11 +35,11 @@ class Category {
     return category;
   }
 
-  async updateById(id: number, value: { title: string; icon_path: string }) {
+  async updateById(id: number, value: ICategory) {
     const category = await CategoryMapping.findByPk(id);
 
     if (!category) {
-      throw new Error("Категория не найдена");
+      return null;
     }
 
     await category.update({
