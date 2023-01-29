@@ -15,6 +15,8 @@ export const create = [
   body("composition").optional().isLength({ min: 4 }),
   body("weight").optional().isLength({ min: 4 }),
   body("discount").optional().isNumeric(),
+  body("subcategoryId").optional().isInt(),
+  body("productBrandId").optional().isInt(),
 ];
 
 export const update = [
@@ -35,4 +37,6 @@ export const update = [
   body("composition").optional().isLength({ min: 4 }),
   body("weight").optional().isLength({ min: 4 }),
   body("discount").optional().isNumeric(),
+  body("subcategoryId").optional().isInt(),
+  body("productBrandId").optional().isInt(),
 ];

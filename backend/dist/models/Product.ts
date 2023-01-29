@@ -8,6 +8,8 @@ interface IProduct {
   composition: string;
   weight: string;
   discount: number;
+  subcategoryId: number;
+  productBrandId: number;
 }
 
 class Product {
@@ -27,6 +29,8 @@ class Product {
       composition: value.composition,
       weight: value.weight,
       discount: value.discount,
+      subcategoryId: value.subcategoryId,
+      productBrandId: value.productBrandId,
     });
 
     return product;

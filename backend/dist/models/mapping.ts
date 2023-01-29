@@ -127,6 +127,9 @@ export const initDB = () => {
   Subcategory.hasOne(Product);
   Product.belongsTo(Subcategory);
 
+  ProductBrand.hasOne(Product);
+  Product.belongsTo(ProductBrand);
+
   User.hasOne(Basket);
   Basket.belongsTo(User);
 
