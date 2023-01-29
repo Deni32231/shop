@@ -1,11 +1,11 @@
-import CategoryModel from "../models/Category";
+import SubcategoryModel from "../models/Subcategory";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await CategoryModel.findAll();
+    const subcategory = await SubcategoryModel.findAll();
 
-    res.json(categories);
+    res.json(subcategory);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,15 +18,15 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await CategoryModel.findById(id);
+    const subcategory = await SubcategoryModel.findById(id);
 
-    if (!category) {
+    if (!subcategory) {
       return res.status(400).json({
         message: "Не удалось найти категорию",
       });
     }
 
-    res.json(category);
+    res.json(subcategory);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -37,12 +37,13 @@ export const getById = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await CategoryModel.create(
+    const subcategory = await SubcategoryModel.create(
       req.body.title,
-      req.body.icon_path
+      req.body.img_path,
+      req.body.categoryId
     );
 
-    res.json(category);
+    res.json(subcategory);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -55,7 +56,7 @@ export const destroy = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    await CategoryModel.findByIdAndDelete(id);
+    await SubcategoryModel.findByIdAndDelete(id);
 
     res.json({
       message: "Успешно удален",
@@ -72,18 +73,19 @@ export const update = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await CategoryModel.findByIdAndUpdate(id, {
+    const subcategory = await SubcategoryModel.findByIdAndUpdate(id, {
       title: req.body.title,
-      icon_path: req.body.icon_path,
+      img_path: req.body.img_path,
+      categoryId: req.body.categoryId,
     });
 
-    if (!category) {
+    if (!subcategory) {
       return res.status(400).json({
         message: "Не удалось найти категорию",
       });
     }
 
-    res.json(category);
+    res.json(subcategory);
   } catch (err) {
     console.log(err);
     res.status(500).json({
