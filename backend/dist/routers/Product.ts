@@ -1,7 +1,7 @@
 import express from "express";
-import * as controller from "../controllers/Subcategory";
+import * as controller from "../controllers/Product";
 import errorsHandler from "../utils/errorsHandler";
-import * as validation from "../validations/Subcategory";
+import * as validation from "../validations/Product";
 
 const router = express.Router();
 

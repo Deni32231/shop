@@ -11,8 +11,8 @@ router.get("/", controller.getAll);
 
 router.post("/", validation.create, errorsHandler, controller.create);
 
-router.delete("/:id", controller.destroy);
+router.delete("/:id", controller.deleteById);
 
-router.patch("/:id", validation.update, errorsHandler, controller.update);
+router.patch("/:id", validation.update, errorsHandler, controller.updateById);
 
 export default router;

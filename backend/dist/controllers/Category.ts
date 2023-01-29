@@ -51,7 +51,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const destroy = async (req: Request, res: Response) => {
+export const deleteById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
@@ -74,7 +74,7 @@ export const destroy = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
