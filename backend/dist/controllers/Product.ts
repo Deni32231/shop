@@ -68,7 +68,9 @@ export const deleteById = async (req: Request, res: Response) => {
       });
     }
 
-    res.json(product);
+    res.json({
+      message: "Успешно удален",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

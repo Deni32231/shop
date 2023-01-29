@@ -59,6 +59,8 @@ class Product {
       weight: value.weight,
       discount: value.discount,
     });
+
+    return product;
   }
 }
 
