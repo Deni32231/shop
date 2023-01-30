@@ -99,6 +99,7 @@ export const User = sequelize.define("user", {
   },
   phone: {
     type: DataTypes.STRING,
+    unique: true,
   },
 });
 
