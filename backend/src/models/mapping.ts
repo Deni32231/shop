@@ -99,7 +99,6 @@ export const User = sequelize.define("user", {
   },
   phone: {
     type: DataTypes.STRING,
-    unique: true,
   },
 });
 
@@ -116,7 +115,7 @@ export const Order = sequelize.define("order", {
     defaultValue: "processed",
   },
   products: {
-    type: DataTypes.JSONB,
+    type: DataTypes.ARRAY(DataTypes.JSONB),
     allowNull: false,
   },
 });

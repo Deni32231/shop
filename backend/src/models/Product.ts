@@ -21,16 +21,16 @@ class Product {
     return await ProductMapping.findByPk(id);
   }
 
-  async create(value: IProduct) {
+  async create(data: IProduct) {
     const product = await ProductMapping.create({
-      title: value.title,
-      price: value.price,
-      quantity: value.quantity,
-      composition: value.composition,
-      weight: value.weight,
-      discount: value.discount,
-      subcategoryId: value.subcategoryId,
-      productBrandId: value.productBrandId,
+      title: data.title,
+      price: data.price,
+      quantity: data.quantity,
+      composition: data.composition,
+      weight: data.weight,
+      discount: data.discount,
+      subcategoryId: data.subcategoryId,
+      productBrandId: data.productBrandId,
     });
 
     return product;
@@ -48,7 +48,7 @@ class Product {
     return product;
   }
 
-  async updateById(id: number, value: IProduct) {
+  async updateById(id: number, data: IProduct) {
     const product = await ProductMapping.findByPk(id);
 
     if (!product) {
@@ -56,12 +56,12 @@ class Product {
     }
 
     await product.update({
-      title: value.title,
-      price: value.price,
-      quantity: value.quantity,
-      composition: value.composition,
-      weight: value.weight,
-      discount: value.discount,
+      title: data.title,
+      price: data.price,
+      quantity: data.quantity,
+      composition: data.composition,
+      weight: data.weight,
+      discount: data.discount,
     });
 
     return product;

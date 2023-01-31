@@ -14,10 +14,10 @@ class Category {
     return await CategoryMapping.findByPk(id);
   }
 
-  async create(value: ICategory) {
+  async create(data: ICategory) {
     const category = await CategoryMapping.create({
-      title: value.title,
-      icon_path: value.icon_path,
+      title: data.title,
+      icon_path: data.icon_path,
     });
 
     return category;
@@ -35,7 +35,7 @@ class Category {
     return category;
   }
 
-  async updateById(id: number, value: ICategory) {
+  async updateById(id: number, data: ICategory) {
     const category = await CategoryMapping.findByPk(id);
 
     if (!category) {
@@ -43,8 +43,8 @@ class Category {
     }
 
     await category.update({
-      title: value.title,
-      icon_path: value.icon_path,
+      title: data.title,
+      icon_path: data.icon_path,
     });
 
     return category;
