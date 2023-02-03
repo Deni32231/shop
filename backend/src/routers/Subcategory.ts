@@ -1,5 +1,6 @@
 import express from "express";
 import * as controller from "../controllers/Subcategory";
+import checkAdmin from "../utils/checkAdmin";
 import errorsHandler from "../utils/errorsHandler";
 import * as validation from "../validations/Subcategory";
 
@@ -9,10 +10,22 @@ router.get("/:id", controller.getById);
 
 router.get("/", controller.getAll);
 
-router.post("/", validation.create, errorsHandler, controller.create);
+router.post(
+  "/",
+  checkAdmin,
+  validation.create,
+  errorsHandler,
+  controller.create
+);
 
-router.delete("/:id", controller.deleteById);
+router.delete("/:id", checkAdmin, controller.deleteById);
 
-router.patch("/:id", validation.update, errorsHandler, controller.updateById);
+router.patch(
+  "/:id",
+  checkAdmin,
+  validation.update,
+  errorsHandler,
+  controller.updateById
+);
 
 export default router;

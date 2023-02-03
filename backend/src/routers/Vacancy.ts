@@ -1,8 +1,8 @@
 import express from "express";
-import * as controller from "../controllers/Product";
+import * as controller from "../controllers/Vacancy";
 import checkAdmin from "../utils/checkAdmin";
 import errorsHandler from "../utils/errorsHandler";
-import * as validation from "../validations/Product";
+import * as validation from "../validations/Vacancy";
 
 const router = express.Router();
 

@@ -1,11 +1,11 @@
-import Category from "../models/Category";
+import Order from "../models/Order";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.getAll();
+    const orders = await Order.getAll();
 
-    res.json(categories);
+    res.json(orders);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,54 +18,31 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.getById(id);
+    const order = await Order.getById(id);
 
-    if (!category) {
+    if (!order) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти заказ",
       });
     }
 
-    res.json(category);
+    return res.json(order);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Ошибка севера",
+      message: "Ошибка сервера",
     });
   }
 };
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await Category.create({
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const order = await Order.create({
+      state: "processed",
+      products: req.body.products,
     });
 
-    res.json(category);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: "Ошибка сервера",
-    });
-  }
-};
-
-export const deleteById = async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.params.id);
-
-    const category = await Category.deleteById(id);
-
-    if (!category) {
-      return res.status(400).json({
-        message: "Не удалось найти категорию",
-      });
-    }
-
-    res.json({
-      message: "Успешно удалена",
-    });
+    res.json(order);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -78,18 +55,41 @@ export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.updateById(id, {
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const order = await Order.updateById(id, {
+      state: req.body.state,
+      products: req.body.products,
     });
 
-    if (!category) {
+    if (!order) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти заказ",
       });
     }
 
-    res.json(category);
+    res.json(order);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Ошибка сервера",
+    });
+  }
+};
+
+export const deleteById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const order = await Order.deleteById(id);
+
+    if (!order) {
+      return res.status(400).json({
+        message: "Не удалось найти заказ",
+      });
+    }
+
+    res.json({
+      message: "Успешно удален",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

@@ -1,11 +1,11 @@
-import Category from "../models/Category";
+import Basket from "../models/Basket";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.getAll();
+    const baskets = await Basket.getAll();
 
-    res.json(categories);
+    res.json(baskets);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,54 +18,31 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.getById(id);
+    const basket = await Basket.getById(id);
 
-    if (!category) {
+    if (!basket) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти корзину",
       });
     }
 
-    res.json(category);
+    res.json(basket);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Ошибка севера",
+      message: "Ошибка сервера",
     });
   }
 };
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await Category.create({
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const basket = await Basket.create({
+      products: req.body.products,
+      userId: req.body.userId,
     });
 
-    res.json(category);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: "Ошибка сервера",
-    });
-  }
-};
-
-export const deleteById = async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.params.id);
-
-    const category = await Category.deleteById(id);
-
-    if (!category) {
-      return res.status(400).json({
-        message: "Не удалось найти категорию",
-      });
-    }
-
-    res.json({
-      message: "Успешно удалена",
-    });
+    res.json(basket);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -78,18 +55,39 @@ export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.updateById(id, {
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const basket = await Basket.updateById(id, {
+      products: req.body.products,
+      userId: req.body.userId,
     });
 
-    if (!category) {
+    if (!basket) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти корзину",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Ошибка сервера",
+    });
+  }
+};
+
+export const deleteById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const basket = await Basket.deleteById(id);
+
+    if (!basket) {
+      return res.status(400).json({
+        message: "Не удалось найти коризну",
       });
     }
 
-    res.json(category);
+    res.json({
+      message: "Корзина успешно удалена",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

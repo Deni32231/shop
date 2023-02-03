@@ -2,6 +2,7 @@ import User from "../models/User";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Basket from "../models/Basket";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -122,13 +123,16 @@ export const singUp = async (req: Request, res: Response) => {
 
     const token = jwt.sign(
       {
-        id: user.dataValues.id,
+        userId: user.dataValues.id,
+        role: user.dataValues.role,
       },
       "qwerty123",
       {
         expiresIn: "1d",
       }
     );
+
+    const basket = await Basket.createBasketForUser(user.dataValues.id);
 
     const { passwordHash, ...userData } = user.dataValues;
 
@@ -166,7 +170,8 @@ export const singIn = async (req: Request, res: Response) => {
 
     const token = jwt.sign(
       {
-        id: user.dataValues.id,
+        userId: user.dataValues.id,
+        role: user.dataValues.role,
       },
       "qwerty123",
       {

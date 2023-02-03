@@ -1,11 +1,11 @@
-import Category from "../models/Category";
+import Vacancy from "../models/Vacancy";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.getAll();
+    const vacancies = await Vacancy.getAll();
 
-    res.json(categories);
+    res.json(vacancies);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,54 +18,32 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.getById(id);
+    const vacancy = await Vacancy.getById(id);
 
-    if (!category) {
+    if (!vacancy) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти вакансию",
       });
     }
 
-    res.json(category);
+    res.json(vacancy);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Ошибка севера",
+      message: "Ошибка сервера",
     });
   }
 };
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await Category.create({
+    const vacancy = await Vacancy.create({
       title: req.body.title,
-      icon_path: req.body.icon_path,
+      salary: req.body.salary,
+      responsibilities: req.body.responsibilities,
     });
 
-    res.json(category);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: "Ошибка сервера",
-    });
-  }
-};
-
-export const deleteById = async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.params.id);
-
-    const category = await Category.deleteById(id);
-
-    if (!category) {
-      return res.status(400).json({
-        message: "Не удалось найти категорию",
-      });
-    }
-
-    res.json({
-      message: "Успешно удалена",
-    });
+    res.json(vacancy);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -78,18 +56,42 @@ export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.updateById(id, {
+    const vacancy = await Vacancy.updateById(id, {
       title: req.body.title,
-      icon_path: req.body.icon_path,
+      salary: req.body.salary,
+      responsibilities: req.body.responsibilities,
     });
 
-    if (!category) {
+    if (!vacancy) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти вакансию",
       });
     }
 
-    res.json(category);
+    res.json(vacancy);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Ошибка сервера",
+    });
+  }
+};
+
+export const deleteById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const vacancy = await Vacancy.deleteById(id);
+
+    if (!vacancy) {
+      return res.status(400).json({
+        message: "Не удалось вакансию",
+      });
+    }
+
+    res.json({
+      message: "Удачно удален",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

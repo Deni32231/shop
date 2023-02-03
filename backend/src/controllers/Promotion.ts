@@ -1,11 +1,11 @@
-import Category from "../models/Category";
+import Promotion from "../models/Promotion";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.getAll();
+    const promotions = await Promotion.getAll();
 
-    res.json(categories);
+    res.json(promotions);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -18,54 +18,31 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.getById(id);
+    const promotion = await Promotion.getById(id);
 
-    if (!category) {
+    if (!promotion) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Акция не найдена",
       });
     }
 
-    res.json(category);
+    res.json(promotion);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Ошибка севера",
+      message: "Ошибка сервера",
     });
   }
 };
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const category = await Category.create({
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const promotion = await Promotion.create({
+      text: req.body.text,
+      img_path: req.body.img_path,
     });
 
-    res.json(category);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: "Ошибка сервера",
-    });
-  }
-};
-
-export const deleteById = async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.params.id);
-
-    const category = await Category.deleteById(id);
-
-    if (!category) {
-      return res.status(400).json({
-        message: "Не удалось найти категорию",
-      });
-    }
-
-    res.json({
-      message: "Успешно удалена",
-    });
+    res.json(promotion);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -78,18 +55,41 @@ export const updateById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
-    const category = await Category.updateById(id, {
-      title: req.body.title,
-      icon_path: req.body.icon_path,
+    const promotion = await Promotion.updateById(id, {
+      text: req.body.text,
+      img_path: req.body.img_path,
     });
 
-    if (!category) {
+    if (!promotion) {
       return res.status(400).json({
-        message: "Не удалось найти категорию",
+        message: "Не удалось найти акцию",
       });
     }
 
-    res.json(category);
+    res.json(promotion);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Ошибка сервера",
+    });
+  }
+};
+
+export const deleteById = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const promotion = await Promotion.deleteById(id);
+
+    if (!promotion) {
+      return res.status(400).json({
+        message: "Не удалось найти акцию",
+      });
+    }
+
+    res.json({
+      message: "Акция успешно удалена",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

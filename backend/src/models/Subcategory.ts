@@ -32,7 +32,7 @@ class Subcategory {
       return null;
     }
 
-    subcategory.destroy();
+    await subcategory.destroy();
 
     return subcategory;
   }

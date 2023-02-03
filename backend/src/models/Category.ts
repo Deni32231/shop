@@ -30,7 +30,7 @@ class Category {
       return null;
     }
 
-    category.destroy();
+    await category.destroy();
 
     return category;
   }
