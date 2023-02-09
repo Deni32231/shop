@@ -1,0 +1,106 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  padding-top: 10px;
+}
+
+.catalogButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff0000;
+  padding: 14px 20px;
+  border-radius: 31px;
+  font-weight: 800;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: #d80000;
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  > input {
+    box-sizing: border-box;
+    width: 317px;
+    height: 48px;
+    border-radius: 16px;
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+
+  > button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    margin-left: -40px;
+    cursor: pointer;
+  }
+}
+
+.delivery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffa900;
+  padding: 3px 40px;
+  border-radius: 16px;
+
+  > span {
+    font-size: 14px;
+  }
+
+  > span:last-child {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  cursor: pointer;
+}
+
+.miniBtn {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e1e1e1;
+  border-radius: 16px;
+  transition: all 0.2s linear;
+  path {
+    transition: all 0.2s linear;
+  }
+  &:hover {
+    border-color: #ffa900;
+    background-color: #fff8eb;
+    path {
+      fill: #ffa900;
+    }
+  }
+}
+
+.basketBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff0000;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-weight: 800;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: #d80000;
+  }
+}
+
+.categories {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
